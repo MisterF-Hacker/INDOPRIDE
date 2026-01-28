@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indopride - Penyimpanan & Berbagi File Indonesia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --merah: #ce2c2c;
+            --merah-gelap: #a11313;
+            --putih: #ffffff;
+            --abu-muda: #f5f5f5;
+            --abu: #e0e0e0;
+            --abu-gelap: #333333;
+            --hijau: #2ecc71;
+        }
+
+        body {
+            background-color: var(--putih);
+            color: var(--abu-gelap);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(to right, var(--merah), var(--merah-gelap));
+            color: var(--putih);
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--putih);
+        }
+
+        .logo span {
+            color: var(--putih);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .logo .garuda {
+            color: gold;
+            margin-left: 5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: var(--putih);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .auth-buttons button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .login-btn {
+            background-color: transparent;
+            color: var(--putih);
+            border: 2px solid var(--putih) !important;
+        }
+
+        .signup-btn {
+            background-color: var(--putih);
+            color: var(--merah);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.8)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--abu);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--merah-gelap);
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--abu-gelap);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(to right, var(--merah), var(--merah-gelap));
+            color: var(--putih);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(206, 44, 44, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(206, 44, 44, 0.6);
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 80px 0;
+            background-color: var(--abu-muda);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--merah-gelap);
+            font-size: 2.2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--putih);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            border-top: 5px solid var(--merah);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--merah);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: var(--merah-gelap);
+            margin-bottom: 15px;
+        }
+
+        /* UPLOAD AREA */
+        .upload-section {
+            padding: 60px 0;
+            background-color: var(--putih);
+            text-align: center;
+        }
+
+        .upload-zone {
+            border: 3px dashed var(--merah);
+            border-radius: 15px;
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            background-color: rgba(206, 44, 44, 0.05);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .upload-zone:hover {
+            background-color: rgba(206, 44, 44, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--merah);
+            margin-bottom: 20px;
+        }
+
+        .upload-zone h3 {
+            color: var(--merah-gelap);
+            margin-bottom: 15px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-button {
+            background-color: var(--merah);
+            color: var(--putih);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        /* FILE MANAGER */
+        .file-manager {
+            padding: 60px 0;
+            background-color: var(--abu-muda);
+        }
+
+        .manager-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .file-actions button {
+            margin-left: 10px;
+            padding: 8px 15px;
+            background-color: var(--merah);
+            color: var(--putih);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .file-list {
+            background-color: var(--putih);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .file-header, .file-item {
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1fr;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--abu);
+        }
+
+        .file-header {
+            background-color: var(--merah);
+            color: var(--putih);
+            font-weight: bold;
+        }
+
+        .file-item:hover {
+            background-color: rgba(206, 44, 44, 0.05);
+        }
+
+        .file-name i {
+            color: var(--merah);
+            margin-right: 10px;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            padding: 80px 0;
+            background-color: var(--putih);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: var(--abu-muda);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 5px solid var(--merah);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--merah-gelap);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--abu-gelap);
+            color: var(--putih);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--putih);
+        }
+
+        .footer-links h4 {
+            color: var(--merah);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: var(--abu);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--putih);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--abu);
+            font-size: 0.9rem;
+        }
+
+        .watermark {
+            color: var(--merah);
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--putih);
+            padding: 40px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--abu-gelap);
+        }
+
+        .modal h2 {
+            color: var(--merah-gelap);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--abu-gelap);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--abu);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .modal-button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--merah);
+            color: var(--putih);
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .modal-button:hover {
+            background-color: var(--merah-gelap);
+        }
+
+        /* PRO SECTION */
+        .pro-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--merah) 0%, var(--merah-gelap) 100%);
+            color: var(--putih);
+            text-align: center;
+        }
+
+        .pro-badge {
+            background-color: gold;
+            color: var(--merah-gelap);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .auth-buttons {
+                margin-top: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .file-header, .file-item {
+                grid-template-columns: 2fr 1fr;
+                font-size: 0.9rem;
+            }
+            
+            .file-header .file-date, .file-header .file-size,
+            .file-item .file-date, .file-item .file-size {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>INDO<span style="color:white;">PRIDE</span></span>
+                <i class="fas fa-star garuda"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#features">Fitur</a></li>
+                    <li><a href="#upload">Upload</a></li>
+                    <li><a href="#pricing">Harga</a></li>
+                    <li><a href="#apps">Aplikasi</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="login-btn" onclick="openLoginModal()">Masuk</button>
+                <button class="signup-btn" onclick="openSignupModal()">Daftar Gratis</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Penyimpanan & Berbagi File Ala Indonesia</h1>
+            <p>Platform penyimpanan cloud dengan tema merah putih. Dapatkan 10GB gratis, upload file hingga 4GB, bandwidth tanpa batas, dan akses dari perangkat apapun. Dibangun dengan kebanggaan nasional.</p>
+            <a href="#upload" class="cta-button">Mulai Upload Gratis <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Tangani Semua Kebutuhan File Anda</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Kolaborasi</h3>
+                    <p>Simpan dan bagikan semua jenis file. Bagikan folder berisi file proyek. Kirim file besar via email dengan mudah.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Penyimpanan</h3>
+                    <p>10GB gratis. Dapatkan hingga 50GB gratis dengan bonus. Simpan semua foto, audio, dan video Anda.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Akses</h3>
+                    <p>Selalu bawa file penting Anda. Jangan sampai lupa file kerja di rumah. Lihat, kelola, dan bagikan dari mana saja.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UPLOAD AREA -->
+    <section class="upload-section" id="upload">
+        <div class="container">
+            <h2 class="section-title">Upload File Anda</h2>
+            <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>Seret & Lepaskan file di sini</h3>
+                <p>Atau klik untuk memilih file dari komputer Anda</p>
+                <p>Mendukung upload hingga 4GB per file</p>
+                <input type="file" id="fileInput" class="file-input" multiple>
+            </div>
+            <button class="upload-button" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-upload"></i> Pilih File untuk Upload
+            </button>
+        </div>
+    </section>
+
+    <!-- FILE MANAGER -->
+    <section class="file-manager">
+        <div class="container">
+            <div class="manager-header">
+                <h2 class="section-title">File Manager Anda</h2>
+                <div class="file-actions">
+                    <button onclick="uploadFile()"><i class="fas fa-upload"></i> Upload Baru</button>
+                    <button onclick="createFolder()"><i class="fas fa-folder-plus"></i> Folder Baru</button>
+                </div>
+            </div>
+            <div class="file-list">
+                <div class="file-header">
+                    <div class="file-name">Nama File</div>
+                    <div class="file-size">Ukuran</div>
+                    <div class="file-date">Diubah</div>
+                    <div class="file-action">Aksi</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-name"><i class="fas fa-file-pdf" style="color:#ce2c2c;"></i> Dokumen_Penting.pdf</div>
+                    <div class="file-size">2.4 MB</div>
+                    <div class="file-date">27 Jan 2026</div>
+                    <div class="file-action">
+                        <button style="background-color:#2ecc71; padding:5px 10px; font-size:0.8rem;">Download</button>
+                    </div>
+                </div>
+                <div class="file-item">
+                    <div class="file-name"><i class="fas fa-file-image" style="color:#2ecc71;"></i> Foto_Keluarga.jpg</div>
+                    <div class="file-size">5.7 MB</div>
+                    <div class="file-date">26 Jan 2026</div>
+                    <div class="file-action">
+                        <button style="background-color:#2ecc71; padding:5px 10px; font-size:0.8rem;">Download</button>
+                    </div>
+                </div>
+                <div class="file-item">
+                    <div class="file-name"><i class="fas fa-file-video" style="color:#3498db;"></i> Video_Proyek.mp4</div>
+                    <div class="file-size">150 MB</div>
+                    <div class="file-date">25 Jan 2026</div>
+                    <div class="file-action">
+                        <button style="background-color:#2ecc71; padding:5px 10px; font-size:0.8rem;">Download</button>
+                    </div>
+                </div>
+                <div class="file-item">
+                    <div class="file-name"><i class="fas fa-folder" style="color:#f39c12;"></i> <strong>Folder Kerja</strong></div>
+                    <div class="file-size">12 File</div>
+                    <div class="file-date">24 Jan 2026</div>
+                    <div class="file-action">
+                        <button style="background-color:#3498db; padding:5px 10px; font-size:0.8rem;">Buka</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOP FEATURES -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Fitur Unggulan</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>10GB Gratis / 4GB per File</h3>
+                    <p>Dapatkan hingga 50GB gratis. Gunakan Indopride untuk backup semua file penting Anda.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Bandwidth & Download Tanpa Batas</h3>
+                    <p>Download selalu tersedia dan cepat. Tidak ada batasan bandwidth atau jumlah download.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Upload Banyak File Sekaligus</h3>
+                    <p>Upload ratusan bahkan ribuan file sekaligus melalui browser atau aplikasi mobile kami.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRO SECTION -->
+    <section class="pro-section" id="pricing">
+        <div class="container">
+            <div class="pro-badge">PRO</div>
+            <h2 style="color:white; margin-bottom:20px;">Butuh Lebih? Upgrade ke Pro!</h2>
+            <p style="max-width:700px; margin:0 auto 30px; font-size:1.1rem;">Layanan profesional untuk kebutuhan bisnis Anda. Dapatkan 1TB penyimpanan, tanpa iklan, upload dari website, dan link download langsung.</p>
+            <a href="#" class="cta-button" style="background-color:white; color:#ce2c2c;">Lihat Paket Pro</a>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Dipercaya oleh Jutaan Pengguna</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Kami menggunakan Indopride untuk berbagi partitur dan file latihan paduan suara. Sangat mudah digunakan & membantu kelompok kami."</p>
+                    <p class="testimonial-author">- Anggota Paduan Suara</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Sempurna untuk menyimpan semua file di cloud. Saya sudah menggunakan ini setiap hari selama setahun dan sangat menyukainya."</p>
+                    <p class="testimonial-author">- Pengguna Setia</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Saya bekerja di TV dan Film dan menggunakan Indopride untuk mengirim efek visual dan berkolaborasi dengan rekan kerja."</p>
+                    <p class="testimonial-author">- Frostbite Films</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPS SECTION -->
+    <section class="features" id="apps">
+        <div class="container">
+            <h2 class="section-title">Bawa File Anda ke Mana Saja</h2>
+            <p style="text-align:center; max-width:700px; margin:0 auto 40px;">Upload, download, lihat, dan kelola file dengan mudah menggunakan aplikasi Indopride untuk Android, iPhone, iPad, dan perangkat lainnya.</p>
+            <div style="text-align:center;">
+                <button style="background-color:#333; color:white; padding:15px 30px; margin:10px; border:none; border-radius:5px;">
+                    <i class="fab fa-google-play"></i> Google Play
+                </button>
+                <button style="background-color:#333; color:white; padding:15px 30px; margin:10px; border:none; border-radius:5px;">
+                    <i class="fab fa-apple"></i> App Store
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">INDO<span style="color:#ce2c2c;">PRIDE</span></div>
+                    <p>Platform penyimpanan dan berbagi file dengan kebanggaan Indonesia. Tema merah putih, fitur lengkap, dan pelayanan terbaik.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Produk</h4>
+                    <ul>
+                        <li><a href="#">Beranda</a></li>
+                        <li><a href="#">Fitur</a></li>
+                        <li><a href="#">Harga</a></li>
+                        <li><a href="#">Aplikasi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Perusahaan</h4>
+                    <ul>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Karir</a></li>
+                        <li><a href="#">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Dukungan</h4>
+                    <ul>
+                        <li><a href="#">Bantuan</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privasi</a></li>
+                        <li><a href="#">Syarat</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Indopride. Semua hak dilindungi. Dibangun dengan semangat nasionalisme Indonesia.</p>
+                <div class="watermark">Dikembangkan oleh: VinzzParker</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIN MODAL -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+            <h2>Masuk ke Akun Indopride</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="email@contoh.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Masukkan password" required>
+                </div>
+                <button type="submit" class="modal-button">Masuk</button>
+            </form>
+            <p style="text-align:center; margin-top:15px;">Belum punya akun? <a href="#" onclick="openSignupModal()" style="color:#ce2c2c;">Daftar di sini</a></p>
+        </div>
+    </div>
+
+    <!-- SIGNUP MODAL -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeSignupModal()">&times;</span>
+            <h2>Daftar Akun Indopride Gratis</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Nama Lengkap</label>
+                    <input type="text" id="signupName" placeholder="Nama Anda" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="email@contoh.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Minimal 8 karakter" required>
+                </div>
+                <button type="submit" class="modal-button">Daftar Gratis</button>
+            </form>
+            <p style="text-align:center; margin-top:15px;">Sudah punya akun? <a href="#" onclick="openLoginModal()" style="color:#ce2c2c;">Masuk di sini</a></p>
+        </div>
+    </div>
+
+    <script>
+        // MODAL FUNCTIONS
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+        
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+        
+        function openSignupModal() {
+            document.getElementById('signupModal').style.display = 'flex';
+        }
+        
+        function closeSignupModal() {
+            document.getElementById('signupModal').style.display = 'none';
+        }
+        
+        // FORM SUBMISSION
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Login berhasil! (simulasi)');
+            closeLoginModal();
+        });
+        
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Pendaftaran berhasil! Selamat bergabung dengan Indopride. (simulasi)');
+            closeSignupModal();
+        });
+        
+        // FILE UPLOAD SIMULATION
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const files = e.target.files;
+            if(files.length > 0) {
+                alert(`Anda memilih ${files.length} file untuk diupload. (simulasi)\n\nFitur upload lengkap memerlukan backend server.`);
+                // Clear selection
+                e.target.value = '';
+            }
+        });
+        
+        // OTHER FUNCTIONS
+        function uploadFile() {
+            document.getElementById('fileInput').click();
+        }
+        
+        function createFolder() {
+            const folderName = prompt('Masukkan nama folder baru:');
+            if(folderName) {
+                alert(`Folder "${folderName}" berhasil dibuat. (simulasi)`);
+            }
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if(event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+        
+        console.log('馃槑 Indopride MediaFire Clone Loaded!');
+        console.log('馃槇 Tema Merah Putih Aktif');
+        console.log('馃槏 Watermark: VinzzParker');
+    </script>
+</body>
+</html>
